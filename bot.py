@@ -2,11 +2,11 @@ import os
 import telebot
 from openai import OpenAI
 
-# Ключи из Render (environment variables)
+# Ключи из Render
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 GROK_API_KEY = os.getenv("GROK_API_KEY")
 
-# Клиент OpenAI для xAI Grok — ТОЛЬКО api_key и base_url, без лишнего!
+# Клиент для xAI Grok — минимальный набор!
 client = OpenAI(
     api_key=GROK_API_KEY,
     base_url="https://api.x.ai/v1"
@@ -14,7 +14,6 @@ client = OpenAI(
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
-# Системный промпт — делает Grok экспертом по Югре
 SYSTEM_PROMPT = """
 Ты — Grok, ассистент платформы Югра Active. Эксперт по активному туризму в ХМАО-Югре.
 Отвечай на русском, дружелюбно, с юмором в стиле Grok.
@@ -33,7 +32,7 @@ def start(message):
 def handle_message(message):
     try:
         response = client.chat.completions.create(
-            model="grok-beta",  # Бесплатная модель
+            model="grok-beta",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": message.text}
