@@ -6,7 +6,7 @@ from openai import OpenAI
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 GROK_API_KEY = os.getenv("GROK_API_KEY")
 
-# Клиент OpenAI для xAI Grok (без лишних параметров!)
+# Клиент OpenAI для xAI Grok — ТОЛЬКО api_key и base_url, без лишнего!
 client = OpenAI(
     api_key=GROK_API_KEY,
     base_url="https://api.x.ai/v1"
